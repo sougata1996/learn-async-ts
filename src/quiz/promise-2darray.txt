@@ -1,1 +1,18 @@
 Explain the code execution based on the order of the messages logged in src/quiz/promise-2darray.txt.
+
+Code Execution Based on Log Messages:
+
+1. Call to sum2DArray(array2D):
+- "Sum called ...": This message is logged immediately when the promise is created.
+- "returning from sum": This is logged right after scheduling the asynchronous sum operation (inside `setTimeout`) but before the actual summing starts.
+
+2. Call to sum2DArray([]):
+- "Sum called ...": This message is logged when the promise is created for the empty array.
+- "Error: Cannot sum an empty array": The promise is rejected immediately because the array is empty, and the error is logged from the .catch() handler.
+
+Asynchronous Execution for sum2DArray(array2D) (Inside `setTimeout`):
+- "Adding 1 to sum", "Adding 2 to sum", ..., "Adding 9 to sum": These messages are logged after the `setTimeout` finishes, as the code iterates through the array and adds each number to the sum.
+- "Sum of array2D: 45": The summing is complete, the promise is resolved, and this message is logged from the .then() handler.
+
+Why the error is logged first: 
+The rejection of the empty array happens immediately with no asynchronous delay, so the error is logged first. Meanwhile, the summing operation for array2D is delayed by `setTimeout`, so it completes later.
